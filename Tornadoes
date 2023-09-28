@@ -1,0 +1,52 @@
+Dataset: https://www.kaggle.com/datasets/sujaykapadnis/tornados
+Dataset contains information about confirmed tornadoes from the years 1950-2022.
+
+#Import csv file
+tornado <- read.csv("tornados.csv")
+
+#Explore data
+str(tornado)
+
+#Change Magnitude feature to factor
+tornado$Magnitude <- factor(tornado$Magnitude)
+
+#Update column names for readability and remove unnecessary columns
+colnames(tornado) <- c("ID","Year","Month","Day","Date","Time","Timezone","Datetime",
+                       "State","StateFIPS","Magnitude","Injuries","Fatalities","PropertyLoss",
+                       "St.Lat","St.Long","End.Lat","End.Long","Length","Width","No.States","delete1",
+                       "delete2","delete3","delete4","delete5","delete6")
+
+tornado$Timezone <- NULL
+tornado$delete1 <- NULL
+tornado$delete2 <- NULL
+tornado$delete3 <- NULL
+tornado$delete4 <- NULL
+tornado$delete5 <- NULL
+tornado$delete6 <- NULL
+
+#Remove rows with NA data
+anyNA(tornado)
+tornado <- na.omit(tornado)
+
+#----------------------------------------------------------------------------------- GGplot Visualizations
+
+#Plot a histogram displaying count of tornadoes by decade for each magnitude
+m <- ggplot(data=tornado, aes(x=Year))
+
+m + geom_histogram(binwidth=10, aes(fill=Magnitude), color="Black") + 
+  ylab("Count") + 
+  facet_grid(Magnitude~.,scales="free") + scale_x_continuous(breaks=seq(1950,2025,10))
+
+#Plot scatterplot/jitterplot displaying fatalities by magnitude
+r <- ggplot(data=tornado, aes(x=Magnitude, y=Fatalities))
+
+r + geom_jitter(aes(size=Length), alpha=0.4, color="darkred")
+
+#Plot the number of tornadoes each month of the year for KS, OK, and AR
+filtered <- tornado[tornado$State == "KS" | tornado$State == "OK" | tornado$State == "AR",]
+
+n <- ggplot(data=filtered, aes(x=Month))
+
+n + geom_histogram(binwidth=1, aes(fill=State), color="darkblue") +
+  scale_x_continuous(breaks=seq(1,12,1)) + 
+  ylab("Count")
