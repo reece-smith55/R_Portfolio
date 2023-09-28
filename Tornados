@@ -1,5 +1,5 @@
 Dataset: https://www.kaggle.com/datasets/sujaykapadnis/tornados
-Dataset contains information about confirmed tornadoes from the years 1950-2022.
+Dataset contains information about confirmed tornados from the years 1950-2022.
 
 #Import csv file
 tornado <- read.csv("tornados.csv")
