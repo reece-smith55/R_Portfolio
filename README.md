@@ -1,5 +1,5 @@
 # R Portfolio - Reece Smith
-This repository contains all of my individual projects using R. For data visualizations, check out my Tableau Public page.
+This repository contains all of my individual projects using R. For more data visualizations, check out my Tableau Public page.
 Thanks for stopping by, and feel free to send me a note with questions or feedback. 
 > [LinkedIn](https://www.linkedin.com/in/reece-smith-mn/)
 
